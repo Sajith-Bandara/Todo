@@ -1,3 +1,36 @@
 <resources>
     <string name="app_name">Todo</string>
+
+    <string name="welcome">Welcome!</string>
+    <string name="signup_title">Create your account</string>
+
+    <string name="user_name_label">User Name</string>
+    <string name="password_label">Password</string>
+    <string name="confirm_password_label">Confirm Password</string>
+
+    <string name="forgot_password">Recover Account?</string>
+    <string name="login_bottom_text">Don\'t have an account?</string>
+    <string name="signup_bottom_text">Already a Member?</string>
+    <string name="to_signup">Sign up </string>
+    <string name="to_login">Login</string>
+
+    <string name="button_login">Login</string>
+    <string name="button_signup">Sign up</string>
+    <string name="button_next">Next</string>
+    <string name="button_continue">Continue</string>
+    <string name="button_recover">Recover</string>
+    <string name="button_submit">Submit</string>
+    <string name="button_delete">Delete Subscription</string>
+    <string name="button_Yes">Yes</string>
+    <string name="button_No">No</string>
+    <string name="button_add_new">Add New</string>
+
+    <string name="signup_toast">Password does not match!</string>
+    <string name="empty_field_toast">Required field cannot be empty</string>
+    <string name="data_save_failed_toast">Data saving Failed!</string>
+    <string name="signup_failed_toast">User registered Failed!</string>
+    <string name="signup_success_toast">User registered successfully!</string>
+    <string name="event_retrieve_failed_toast">Failed to retrieve events</string>
+    <string name="login_failed_toast">Login Failed!</string>
+    <string name="sub_delete_failed_toast">Subscription deletion failed</string>
 </resources>
