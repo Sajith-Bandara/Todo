@@ -12,7 +12,7 @@ import com.example.todo.entity.User;
 import com.example.todo.repository.TaskRepo;
 import com.example.todo.repository.UserRepo;
 
-@Database(entities = {User.class, Task.class}, version = 2)
+@Database(entities = {User.class, Task.class}, version = 3)
 public abstract class TodoDatabase extends RoomDatabase {
 
     private static TodoDatabase instance;

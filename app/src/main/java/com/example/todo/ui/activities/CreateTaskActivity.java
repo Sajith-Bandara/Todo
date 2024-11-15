@@ -4,6 +4,7 @@ import static com.example.todo.utils.Token.getUserId;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -26,6 +27,7 @@ import com.example.todo.database.TodoDatabase;
 import com.example.todo.entity.Task;
 import com.example.todo.entity.User;
 import com.example.todo.repository.TaskRepo;
+import com.example.todo.repository.UserRepo;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.Calendar;
@@ -91,7 +93,6 @@ public class CreateTaskActivity extends AppCompatActivity {
                                         date.getText().toString(), startTimePicker.getText().toString(),
                                         endTimePicker.getText().toString(),"Todo",Integer.parseInt(getUserId(token))
                                         );
-
                     saveTask(task);
                 }
             }
@@ -178,15 +179,27 @@ public class CreateTaskActivity extends AppCompatActivity {
         return true;
     }
 
-    private void saveTask(Task task){
+    private void saveTask(Task t){
+        SharedPreferences sharedPreferences = getSharedPreferences("app_prefs", Context.MODE_PRIVATE);
+        Log.i("HomeActivity","token "+sharedPreferences.toString());
+        String token = sharedPreferences.getString("token",null);
+        Task task = t;
         new Thread(()->{
             TaskRepo taskRepo = TodoDatabase.getInstance(getApplicationContext()).taskRepo();
-            long row = taskRepo.saveTask(task);
+
+            long row=-1;
+            try{
+                row = taskRepo.saveTask(task);
+            }catch (Exception e){
+                Log.e("filter","error "+e);
+            }
+
             Intent intent = new Intent(CreateTaskActivity.this,HomeActivity.class);
 
+            long finalRow = row;
             runOnUiThread(()->{
-                if(row != -1){
-                    Toast.makeText(CreateTaskActivity.this,getText(R.string.task_save_toast),Toast.LENGTH_SHORT).show();
+                if(finalRow != -1){
+                    Toast.makeText(CreateTaskActivity.this,getText(R.string.task_save_toast),Toast.LENGTH_LONG).show();
                     startActivity(intent);
                 }else {
                     Toast.makeText(CreateTaskActivity.this,getText(R.string.task_save_error_toast),Toast.LENGTH_SHORT).show();

@@ -21,4 +21,7 @@ public interface UserRepo {
 
     @Query("SELECT COUNT(*) FROM users WHERE username = :username ")
     int usernameExists(String username);
+
+    @Query("SELECT * FROM users WHERE id = :userId")
+    User getUserById(String userId);
 }

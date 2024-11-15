@@ -1,16 +1,12 @@
 package com.example.todo.entity;
 
+import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
 @Entity(
-    tableName = "tasks",
-    foreignKeys = @ForeignKey(
-        entity = User.class,parentColumns = "id",
-        childColumns = "userId",
-        onDelete = ForeignKey.CASCADE
-    )
+    tableName = "tasks"
 )
 public class Task {
     @PrimaryKey(autoGenerate = true)
@@ -21,6 +17,7 @@ public class Task {
     private String startTime;
     private String endTime;
     private String status;
+    @ColumnInfo(name = "userId")
     private int userId;
 
     public Task(String subject, String description, String date, String startTime, String endTime, String status, int userId) {

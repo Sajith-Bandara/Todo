@@ -13,6 +13,7 @@ public interface TaskRepo {
     @Insert
     long saveTask(Task task);
 
-    @Query("SELECT * FROM tasks WHERE userId = :userId")
+    @Query("SELECT * FROM tasks WHERE userId = :userId ORDER BY startTime ASC")
     List<Task> getTasks(int userId);
+
 }
