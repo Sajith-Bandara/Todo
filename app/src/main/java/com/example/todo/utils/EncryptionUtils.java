@@ -22,4 +22,10 @@ public class EncryptionUtils {
             return null;
         }
     }
+
+    public static boolean verifyPassword(String password, String correctPassword){
+        if(hashPassword(password).equals(correctPassword)) return true;
+        else return false;
+    }
+
 }

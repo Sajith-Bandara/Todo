@@ -35,7 +35,6 @@
     <Button
         android:id="@+id/signupBtn"
         style="@style/RoundedButton"
-        android:layout_marginTop="16dp"
         android:layout_marginBottom="100dp"
         android:text="@string/button_submit"
         app:cornerRadius="8dp"
@@ -49,7 +48,7 @@
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/passwordSignup"
         style="@style/InputField"
-        android:layout_marginTop="164dp"
+        android:layout_marginTop="114dp"
         android:background="@drawable/rounded_input_background"
         android:hint="@string/password_label"
         android:inputType="textPassword"
@@ -65,7 +64,7 @@
         android:background="@drawable/rounded_input_background"
         android:hint="@string/confirm_password_label"
         android:inputType="textPassword"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/signupBtn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/passwordSignup"
@@ -74,7 +73,7 @@
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/userNameSignup"
         style="@style/InputField"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="50dp"
         android:background="@drawable/rounded_input_background"
         android:hint="@string/user_name_label"
         app:layout_constraintBottom_toBottomOf="parent"

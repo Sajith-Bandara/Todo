@@ -3,6 +3,7 @@
 
     <string name="welcome">Welcome!</string>
     <string name="signup_title">Create your account</string>
+    <string name="login_title">Login your account</string>
 
     <string name="user_name_label">User Name</string>
     <string name="password_label">Password</string>
@@ -31,6 +32,8 @@
     <string name="signup_failed_toast">User registered Failed!</string>
     <string name="signup_success_toast">User registered successfully!</string>
     <string name="event_retrieve_failed_toast">Failed to retrieve events</string>
-    <string name="login_failed_toast">Login Failed!</string>
-    <string name="sub_delete_failed_toast">Subscription deletion failed</string>
+    <string name="login_failed_toast">Invalid username or password!</string>
+    <string name="login_success_toast">Login successful!</string>
+    <string name="user_not_toast">User name not found!</string>
+    <string name="user_exists_toast">User name already exists!</string>
 </resources>

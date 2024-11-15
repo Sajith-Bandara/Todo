@@ -1,7 +1,11 @@
 package com.example.todo.ui.activities;
 
+import static com.example.todo.utils.Token.createToken;
+
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.activity.EdgeToEdge;
@@ -14,6 +18,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.todo.R;
@@ -28,6 +33,8 @@ public class SignupActivity extends AppCompatActivity {
 
     private EditText userName,password,confirmPassword;
     private Button button;
+    private TextView switchToLogin;
+
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +59,16 @@ public class SignupActivity extends AppCompatActivity {
                 }
             }
         });
+
+        switchToLogin = findViewById(R.id.toLogin);
+        Intent loginIntent = new Intent(this,LoginActivity.class);
+
+        switchToLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(loginIntent);
+            }
+        });
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -69,23 +86,38 @@ public class SignupActivity extends AppCompatActivity {
 
         new Thread(() -> {
             UserRepo userRpo = TodoDatabase.getInstance(getApplicationContext()).userRepo();
-            long rowId = userRpo.insertUser(user);
 
-            List<User> users = userRpo.getAllUsers();
+            if (userRpo.usernameExists(username) >0) {
+                runOnUiThread(() -> Toast.makeText(SignupActivity.this, getText(R.string.user_exists_toast), Toast.LENGTH_SHORT).show());
+            } else {
+                long rowId = userRpo.insertUser(user);
 
-            for (User user1 : users) {
-                Log.d("Database", "User: " + user1.getUsername());
-            }
+                List<User> users = userRpo.getAllUsers();
 
-            runOnUiThread(() -> {
-                if (rowId != -1) {
-                    Toast.makeText(SignupActivity.this, getText(R.string.signup_success_toast), Toast.LENGTH_SHORT).show();
-                    startActivity(intent);
-                } else {
-                    Toast.makeText(SignupActivity.this, getText(R.string.signup_failed_toast), Toast.LENGTH_SHORT).show();
+                for (User user1 : users) {
+                    Log.d("Database", "User: " + user1.getUsername());
                 }
-            });
+
+                runOnUiThread(() -> {
+                    if (rowId != -1) {
+                        Toast.makeText(SignupActivity.this, getText(R.string.signup_success_toast), Toast.LENGTH_SHORT).show();
+
+                        String token = createToken(user.getId(), user.getUsername());
+                        saveTokenToSharedPreferences(token);
+
+                        startActivity(intent);
+                    } else {
+                        Toast.makeText(SignupActivity.this, getText(R.string.signup_failed_toast), Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
         }).start();
+    }
+    public void saveTokenToSharedPreferences(String token) {
+        SharedPreferences sharedPreferences = getSharedPreferences("app_prefs", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("token", token);
+        editor.apply();
     }
 
 }

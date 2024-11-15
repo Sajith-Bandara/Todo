@@ -1,9 +1,10 @@
 package com.example.todo.entity;
 
 import androidx.room.Entity;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "users")
+@Entity(tableName = "users",indices = {@Index(value = "username", unique = true)})
 public class User {
     @PrimaryKey(autoGenerate = true)
     private int id;
@@ -15,7 +16,6 @@ public class User {
         this.password = password;
     }
 
-    // Getters and setters
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
     public String getUsername() { return username; }

@@ -13,9 +13,12 @@ public interface UserRepo {
     @Insert
     long insertUser(User user);
 
-    @Query("SELECT * FROM users WHERE username = :username LIMIT 1")
+    @Query("SELECT * FROM users WHERE username = :username")
     User getUserByUsername(String username);
 
     @Query("SELECT * FROM users")
     List<User> getAllUsers();
+
+    @Query("SELECT COUNT(*) FROM users WHERE username = :username ")
+    int usernameExists(String username);
 }

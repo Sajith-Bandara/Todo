@@ -9,7 +9,7 @@ import androidx.room.RoomDatabase;
 import com.example.todo.entity.User;
 import com.example.todo.repository.UserRepo;
 
-@Database(entities = {User.class}, version = 1)
+@Database(entities = {User.class}, version = 2)
 public abstract class TodoDatabase extends RoomDatabase {
 
     private static TodoDatabase instance;
@@ -20,6 +20,7 @@ public abstract class TodoDatabase extends RoomDatabase {
         if (instance == null) {
             instance = Room.databaseBuilder(context.getApplicationContext(),
                             TodoDatabase.class, "todo_database")
+                    .fallbackToDestructiveMigration()
                     .build();
         }
         return instance;
