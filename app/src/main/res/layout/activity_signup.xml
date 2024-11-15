@@ -36,7 +36,7 @@
         android:id="@+id/signupBtn"
         style="@style/RoundedButton"
         android:layout_marginBottom="100dp"
-        android:text="@string/button_submit"
+        android:text="@string/button_signup"
         app:cornerRadius="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

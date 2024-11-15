@@ -90,7 +90,7 @@ public class SignupActivity extends AppCompatActivity {
             if (userRpo.usernameExists(username) >0) {
                 runOnUiThread(() -> Toast.makeText(SignupActivity.this, getText(R.string.user_exists_toast), Toast.LENGTH_SHORT).show());
             } else {
-                long rowId = userRpo.insertUser(user);
+                long row = userRpo.saveUser(user);
 
                 List<User> users = userRpo.getAllUsers();
 
@@ -99,7 +99,7 @@ public class SignupActivity extends AppCompatActivity {
                 }
 
                 runOnUiThread(() -> {
-                    if (rowId != -1) {
+                    if (row != -1) {
                         Toast.makeText(SignupActivity.this, getText(R.string.signup_success_toast), Toast.LENGTH_SHORT).show();
 
                         String token = createToken(user.getId(), user.getUsername());

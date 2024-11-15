@@ -49,6 +49,5 @@
         <item name="android:layout_width">340dp</item>
         <item name="android:layout_height">52dp</item>
     </style>
-<!--    android:drawableEnd="@drawable/ic_dropdown_arrow"-->
 
 </resources>

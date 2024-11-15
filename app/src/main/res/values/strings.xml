@@ -4,10 +4,17 @@
     <string name="welcome">Welcome!</string>
     <string name="signup_title">Create your account</string>
     <string name="login_title">Login your account</string>
+    <string name="add_task_title">Add Task</string>
+    <string name="home_title">Task List</string>
 
     <string name="user_name_label">User Name</string>
     <string name="password_label">Password</string>
     <string name="confirm_password_label">Confirm Password</string>
+    <string name="subject_label">Subject</string>
+    <string name="description_label">Description</string>
+    <string name="date_label">Select a date</string>
+    <string name="start_time_label">Select start time</string>
+    <string name="end_time_label">Select end time</string>
 
     <string name="forgot_password">Recover Account?</string>
     <string name="login_bottom_text">Don\'t have an account?</string>
@@ -17,14 +24,11 @@
 
     <string name="button_login">Login</string>
     <string name="button_signup">Sign up</string>
-    <string name="button_next">Next</string>
-    <string name="button_continue">Continue</string>
-    <string name="button_recover">Recover</string>
-    <string name="button_submit">Submit</string>
-    <string name="button_delete">Delete Subscription</string>
+    <string name="button_add">Add</string>
+    <string name="button_delete">Delete</string>
+    <string name="button_edit">Edit</string>
     <string name="button_Yes">Yes</string>
     <string name="button_No">No</string>
-    <string name="button_add_new">Add New</string>
 
     <string name="signup_toast">Password does not match!</string>
     <string name="empty_field_toast">Required field cannot be empty</string>
@@ -36,4 +40,8 @@
     <string name="login_success_toast">Login successful!</string>
     <string name="user_not_toast">User name not found!</string>
     <string name="user_exists_toast">User name already exists!</string>
+    <string name="invalid_date_toast">End time must be after start time.</string>
+    <string name="invalid_time_toast">Selected date cannot be in the past.</string>
+    <string name="task_save_toast">Task saved successfully!</string>
+    <string name="task_save_error_toast">Task save failed!</string>
 </resources>

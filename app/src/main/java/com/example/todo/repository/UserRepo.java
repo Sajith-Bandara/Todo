@@ -11,7 +11,7 @@ import java.util.List;
 @Dao
 public interface UserRepo {
     @Insert
-    long insertUser(User user);
+    long saveUser(User user);
 
     @Query("SELECT * FROM users WHERE username = :username")
     User getUserByUsername(String username);
