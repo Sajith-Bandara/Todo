@@ -1,5 +1,6 @@
 package com.example.todo.ui.adapter;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.todo.R;
 import com.example.todo.entity.Task;
+import com.example.todo.ui.activities.TaskViewActivity;
 
 import java.util.List;
 
@@ -35,6 +37,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardViewHolder
     public void onBindViewHolder(@NonNull CardAdapter.CardViewHolder holder, int position) {
         try {
             Task task = list.get(position);
+            int taskId = task.getTaskId();
             String subject = task.getSubject();
             String startTime = task.getStartTime();
             String endTime = task.getEndTime();
@@ -66,6 +69,12 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardViewHolder
                     holder.cardStatus.setTextColor(Color.parseColor("#000000"));
                     break;
             }
+
+            holder.itemView.setOnClickListener(v->{
+                Intent intent = new Intent(v.getContext(), TaskViewActivity.class);
+                intent.putExtra("taskId",taskId);
+                v.getContext().startActivity(intent);
+            });
         } catch (Exception e) {
             e.printStackTrace();
         }

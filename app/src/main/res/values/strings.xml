@@ -6,6 +6,7 @@
     <string name="login_title">Login your account</string>
     <string name="add_task_title">Add Task</string>
     <string name="home_title">Task List</string>
+    <string name="task_title">Task Details</string>
 
     <string name="user_name_label">User Name</string>
     <string name="password_label">Password</string>
@@ -26,7 +27,7 @@
     <string name="button_signup">Sign up</string>
     <string name="button_add">Add</string>
     <string name="button_delete">Delete</string>
-    <string name="button_edit">Edit</string>
+    <string name="button_edit">Update</string>
     <string name="button_Yes">Yes</string>
     <string name="button_No">No</string>
 
@@ -40,8 +41,21 @@
     <string name="login_success_toast">Login successful!</string>
     <string name="user_not_toast">User name not found!</string>
     <string name="user_exists_toast">User name already exists!</string>
-    <string name="invalid_date_toast">End time must be after start time.</string>
-    <string name="invalid_time_toast">Selected date cannot be in the past.</string>
+    <string name="invalid_date_toast">Selected date cannot be in the past.</string>
+    <string name="invalid_time_toast">End time must be after start time.</string>
     <string name="task_save_toast">Task saved successfully!</string>
     <string name="task_save_error_toast">Task save failed!</string>
+    <string name="task_update_toast">Task update successfully!</string>
+    <string name="task_update_error_toast">Task update failed!</string>
+    <string name="task_delete_toast">Task delete successfully!</string>
+    <string name="task_delete_error_toast">Task delete failed!</string>
+
+    <string name="un_save_title">Unsaved Data</string>
+    <string name="save_data_title">Save Data</string>
+    <string name="update_data_title">Update Data</string>
+    <string name="delete_title">Delete Subscription</string>
+
+    <string name="conform_massage_back">Are you sure you want to go back?</string>
+    <string name="conform_massage_save">Are the details correct?</string>
+    <string name="conform_massage_delete">Are you sure you want delete task?</string>
 </resources>

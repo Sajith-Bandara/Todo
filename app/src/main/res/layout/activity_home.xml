@@ -35,9 +35,8 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
-        android:layout_width="409dp"
-        android:layout_height="476dp"
-        android:layout_marginTop="12dp"
+        android:layout_width="418dp"
+        android:layout_height="504dp"
         app:layout_constraintBottom_toTopOf="@+id/plusIcon"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
