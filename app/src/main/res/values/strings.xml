@@ -54,8 +54,10 @@
     <string name="save_data_title">Save Data</string>
     <string name="update_data_title">Update Data</string>
     <string name="delete_title">Delete Subscription</string>
+    <string name="status_change_title">Mark as done</string>
 
     <string name="conform_massage_back">Are you sure you want to go back?</string>
     <string name="conform_massage_save">Are the details correct?</string>
     <string name="conform_massage_delete">Are you sure you want delete task?</string>
+    <string name="conform_massage_status">Are you sure you want mark as done?</string>
 </resources>

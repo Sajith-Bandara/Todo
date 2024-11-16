@@ -1,5 +1,7 @@
 package com.example.todo.ui.adapter;
 
+import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.util.Log;
@@ -12,7 +14,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.todo.R;
+import com.example.todo.database.TodoDatabase;
 import com.example.todo.entity.Task;
+import com.example.todo.repository.TaskRepo;
 import com.example.todo.ui.activities.TaskViewActivity;
 
 import java.util.List;
@@ -20,10 +24,11 @@ import java.util.List;
 public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardViewHolder> {
 
     private List<Task> list;
+    private Context context;
 
-    public CardAdapter(List<Task> tasks) {
+    public CardAdapter(Context context, List<Task> tasks) {
         this.list = tasks;
-        Log.i("filter","list"+this.list.toString());
+        this.context = context;
     }
 
     @NonNull
@@ -47,6 +52,17 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardViewHolder
             holder.cardTime.setText(startTime + " - " + endTime);
             holder.cardStatus.setText(status);
 
+            holder.cardStatus.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    changeStatusConfirmation(taskId,"Done");
+                    holder.cardStatus.setBackgroundColor(Color.parseColor("#EDE8FF"));
+                    holder.cardStatus.setTextColor(Color.parseColor("#5F33E1"));
+                    holder.cardStatus.setText("Done");
+
+                }
+            });
+            Log.i("filter","status "+status);
             switch (status) {
                 case "Todo":
                     holder.cardStatus.setBackgroundColor(Color.parseColor("#DAF4FF"));
@@ -96,5 +112,24 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardViewHolder
             cardStatus = itemView.findViewById(R.id.cardStatus);
             cardViewHolder = itemView;
         }
+    }
+
+    private void changeStatus(int taskId,String s){
+        new Thread(()->{
+            TaskRepo taskRepo = TodoDatabase.getInstance(context).taskRepo();
+            taskRepo.changStatus(taskId,s);
+
+
+        }).start();
+    }
+    private void changeStatusConfirmation(int taskId,String status) {
+        new AlertDialog.Builder(context)
+                .setTitle(context.getString(R.string.status_change_title))
+                .setMessage(context.getString(R.string.conform_massage_status))
+                .setPositiveButton(context.getString(R.string.button_Yes), (dialog, which) -> {
+                    changeStatus(taskId, status);
+                })
+                .setNegativeButton(context.getString(R.string.button_No), null)
+                .show();
     }
 }

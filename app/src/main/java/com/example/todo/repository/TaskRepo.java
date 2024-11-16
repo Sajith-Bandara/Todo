@@ -21,10 +21,12 @@ public interface TaskRepo {
     @Query("DELETE FROM tasks WHERE taskId = :taskId")
     int deleteTask(int taskId);
 
-    @Query("SELECT * FROM tasks WHERE userId = :userId ORDER BY startTime ASC")
-    List<Task> getTasks(int userId);
+    @Query("SELECT * FROM tasks WHERE userId = :userId AND date= :date ORDER BY startTime ASC")
+    List<Task> getTasks(int userId,String date);
 
     @Query("SELECT * FROM tasks WHERE taskId = :taskId")
     Task getTaskById(int taskId);
 
+    @Query("UPDATE tasks SET status = :status WHERE taskId = :taskId")
+    int changStatus(int taskId, String status);
 }

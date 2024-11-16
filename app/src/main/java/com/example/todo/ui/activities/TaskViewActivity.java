@@ -153,7 +153,7 @@ public class TaskViewActivity extends AppCompatActivity {
                 (view, selectedYear, selectedMonth, selectedDay) -> {
                     selectedDate.set(selectedYear, selectedMonth, selectedDay);
 
-                    String formattedDate = selectedDay + "/" + (selectedMonth + 1) + "/" + selectedYear;
+                    String formattedDate = selectedYear+ "-" + (selectedMonth + 1) + "-" + selectedDay;
                     date.setText(formattedDate);
                 }, year, month, day);
 
@@ -194,7 +194,7 @@ public class TaskViewActivity extends AppCompatActivity {
 
         String displayedDate = date.getText().toString();
         if (!displayedDate.isEmpty()) {
-            String[] parts = displayedDate.split("/");
+            String[] parts = displayedDate.split("-");
             int day = Integer.parseInt(parts[0]);
             int month = Integer.parseInt(parts[1]) - 1;
             int year = Integer.parseInt(parts[2]);

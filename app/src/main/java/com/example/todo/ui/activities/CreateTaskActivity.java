@@ -118,7 +118,7 @@ public class CreateTaskActivity extends AppCompatActivity {
                     @Override
                     public void onDateSet(DatePicker view, int selectedYear, int selectedMonth, int selectedDay) {
                         selectedDate.set(selectedYear, selectedMonth, selectedDay);
-                        String selectedDate = selectedDay + "/" + (selectedMonth + 1) + "/" + selectedYear;
+                        String selectedDate = selectedYear+ "-" + (selectedMonth + 1) + "-" + selectedDay;
                         date.setText(selectedDate);
                     }
                 }, year, month, day);
@@ -183,24 +183,18 @@ public class CreateTaskActivity extends AppCompatActivity {
 
     private void saveTask(Task t){
         SharedPreferences sharedPreferences = getSharedPreferences("app_prefs", Context.MODE_PRIVATE);
-        Log.i("HomeActivity","token "+sharedPreferences.toString());
+
         String token = sharedPreferences.getString("token",null);
         Task task = t;
         new Thread(()->{
             TaskRepo taskRepo = TodoDatabase.getInstance(getApplicationContext()).taskRepo();
 
-            long row=-1;
-            try{
-                row = taskRepo.saveTask(task);
-            }catch (Exception e){
-                Log.e("filter","error "+e);
-            }
+            long row= taskRepo.saveTask(task);
 
             Intent intent = new Intent(CreateTaskActivity.this,HomeActivity.class);
 
-            long finalRow = row;
             runOnUiThread(()->{
-                if(finalRow != -1){
+                if(row != -1){
                     Toast.makeText(CreateTaskActivity.this,getText(R.string.task_save_toast),Toast.LENGTH_LONG).show();
                     startActivity(intent);
                 }else {
