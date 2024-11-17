@@ -68,14 +68,6 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardViewHolder
                     holder.cardStatus.setBackgroundColor(Color.parseColor("#EDE8FF"));
                     holder.cardStatus.setTextColor(Color.parseColor("#5F33E1"));
                     break;
-                case "Miss":
-                    holder.cardStatus.setBackgroundColor(Color.parseColor("#FFE3DA"));
-                    holder.cardStatus.setTextColor(Color.parseColor("#CD7258"));
-                    break;
-                case "In Progress":
-                    holder.cardStatus.setBackgroundColor(Color.parseColor("#FFF1D6"));
-                    holder.cardStatus.setTextColor(Color.parseColor("#CF9A32"));
-                    break;
                 default:
                     holder.cardViewHolder.setBackgroundColor(Color.parseColor("#FFFFFF"));
                     holder.cardStatus.setTextColor(Color.parseColor("#000000"));

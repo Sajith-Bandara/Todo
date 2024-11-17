@@ -11,6 +11,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -86,6 +87,7 @@ public class TaskViewActivity extends AppCompatActivity {
                     Toast.makeText(TaskViewActivity.this, getText(R.string.invalid_time_toast), Toast.LENGTH_SHORT).show();
 
                 }else if(!isDateValid()){
+                    Log.i("filter","date "+date.getText().toString());
                     Toast.makeText(TaskViewActivity.this, getText(R.string.invalid_date_toast), Toast.LENGTH_SHORT).show();
 
                 }else{
@@ -211,7 +213,7 @@ public class TaskViewActivity extends AppCompatActivity {
         selectedDate.set(Calendar.SECOND, 0);
         selectedDate.set(Calendar.MILLISECOND, 0);
 
-        return !selectedDate.before(today);
+        return selectedDate.before(today);
     }
 
 
