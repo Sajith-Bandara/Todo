@@ -82,7 +82,7 @@ public class SignupActivity extends AppCompatActivity {
 
         User user = new User(username, hashedPassword);
 
-        Intent intent = new Intent(SignupActivity.this,HomeActivity.class);
+        Intent intent = new Intent(SignupActivity.this,LoginActivity.class);
 
         new Thread(() -> {
             UserRepo userRpo = TodoDatabase.getInstance(getApplicationContext()).userRepo();
@@ -102,9 +102,6 @@ public class SignupActivity extends AppCompatActivity {
                     if (row != -1) {
                         Toast.makeText(SignupActivity.this, getText(R.string.signup_success_toast), Toast.LENGTH_SHORT).show();
 
-                        String token = createToken(user.getId(), user.getUsername());
-                        saveTokenToSharedPreferences(token);
-
                         startActivity(intent);
                     } else {
                         Toast.makeText(SignupActivity.this, getText(R.string.signup_failed_toast), Toast.LENGTH_SHORT).show();
@@ -113,11 +110,4 @@ public class SignupActivity extends AppCompatActivity {
             }
         }).start();
     }
-    public void saveTokenToSharedPreferences(String token) {
-        SharedPreferences sharedPreferences = getSharedPreferences("app_prefs", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("token", token);
-        editor.apply();
-    }
-
 }

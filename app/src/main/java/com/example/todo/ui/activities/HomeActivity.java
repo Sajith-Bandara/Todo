@@ -1,6 +1,7 @@
 package com.example.todo.ui.activities;
 
 import static com.example.todo.utils.Token.getUserId;
+import static com.example.todo.utils.Token.isTokenValid;
 
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
@@ -121,7 +122,7 @@ public class HomeActivity extends AppCompatActivity{
         SharedPreferences sharedPreferences = getSharedPreferences("app_prefs", Context.MODE_PRIVATE);
         String token = sharedPreferences.getString("token",null);
 
-        if (token == null || token.isEmpty()) {
+        if (token == null || token.isEmpty() || isTokenValid(token)) {
             startActivity(new Intent(HomeActivity.this,LoginActivity.class));
             return;
         }
