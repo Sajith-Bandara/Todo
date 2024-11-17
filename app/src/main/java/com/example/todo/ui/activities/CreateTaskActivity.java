@@ -197,6 +197,7 @@ public class CreateTaskActivity extends AppCompatActivity {
                 if(row != -1){
                     Toast.makeText(CreateTaskActivity.this,getText(R.string.task_save_toast),Toast.LENGTH_LONG).show();
                     startActivity(intent);
+                    finish();
                 }else {
                     Toast.makeText(CreateTaskActivity.this,getText(R.string.task_save_error_toast),Toast.LENGTH_SHORT).show();
                 }
@@ -212,6 +213,7 @@ public class CreateTaskActivity extends AppCompatActivity {
                 .setMessage(getString(R.string.conform_massage_back))
                 .setPositiveButton(getString(R.string.button_Yes), (dialog, which) -> {
                     CreateTaskActivity.super.onBackPressed();
+                    finish();
                 })
                 .setNegativeButton(getString(R.string.button_No), null)
                 .show();

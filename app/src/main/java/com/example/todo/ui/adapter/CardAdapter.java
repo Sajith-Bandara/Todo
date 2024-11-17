@@ -55,11 +55,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardViewHolder
             holder.cardStatus.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    changeStatusConfirmation(taskId,"Done");
-                    holder.cardStatus.setBackgroundColor(Color.parseColor("#EDE8FF"));
-                    holder.cardStatus.setTextColor(Color.parseColor("#5F33E1"));
-                    holder.cardStatus.setText("Done");
-
+                    changeStatusConfirmation(taskId,"Done",holder);
                 }
             });
             Log.i("filter","status "+status);
@@ -122,12 +118,15 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardViewHolder
 
         }).start();
     }
-    private void changeStatusConfirmation(int taskId,String status) {
+    private void changeStatusConfirmation(int taskId,String status,CardViewHolder holder) {
         new AlertDialog.Builder(context)
                 .setTitle(context.getString(R.string.status_change_title))
                 .setMessage(context.getString(R.string.conform_massage_status))
                 .setPositiveButton(context.getString(R.string.button_Yes), (dialog, which) -> {
                     changeStatus(taskId, status);
+                    holder.cardStatus.setBackgroundColor(Color.parseColor("#EDE8FF"));
+                    holder.cardStatus.setTextColor(Color.parseColor("#5F33E1"));
+                    holder.cardStatus.setText("Done");
                 })
                 .setNegativeButton(context.getString(R.string.button_No), null)
                 .show();
