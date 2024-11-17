@@ -3,7 +3,7 @@ package com.example.todo.utils;
 
 public class Token {
     public static String createToken(int userId, String username) {
-        long expirationTime = System.currentTimeMillis() + (30 * 1000);
+        long expirationTime = System.currentTimeMillis() + (24*60*60*30 * 1000);
         return userId + ":"+ username + ":" + expirationTime;
     }
 
