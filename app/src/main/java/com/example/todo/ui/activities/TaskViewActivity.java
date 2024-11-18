@@ -17,8 +17,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TimePicker;
 import android.widget.Toast;
+import android.window.OnBackInvokedDispatcher;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -238,6 +240,7 @@ public class TaskViewActivity extends AppCompatActivity {
                 if(row >0){
                     Toast.makeText(TaskViewActivity.this,getText(R.string.task_update_toast),Toast.LENGTH_LONG).show();
                     startActivity(intent);
+                    finish();
                 }else {
                     Toast.makeText(TaskViewActivity.this,getText(R.string.task_update_error_toast),Toast.LENGTH_SHORT).show();
                 }
@@ -257,6 +260,7 @@ public class TaskViewActivity extends AppCompatActivity {
                 if(row >0){
                     Toast.makeText(TaskViewActivity.this,getText(R.string.task_delete_toast),Toast.LENGTH_LONG).show();
                     startActivity(intent);
+                    finish();
                 }else {
                     Toast.makeText(TaskViewActivity.this,getText(R.string.task_delete_error_toast),Toast.LENGTH_SHORT).show();
                 }
@@ -297,5 +301,11 @@ public class TaskViewActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialogInterface, int i) {}
                 })
                 .show();
+    }
+
+    @Override
+    public void onBackPressed() {
+        finish();
+        super.onBackPressed();
     }
 }

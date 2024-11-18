@@ -101,8 +101,8 @@ public class SignupActivity extends AppCompatActivity {
                 runOnUiThread(() -> {
                     if (row != -1) {
                         Toast.makeText(SignupActivity.this, getText(R.string.signup_success_toast), Toast.LENGTH_SHORT).show();
-
                         startActivity(intent);
+                        finish();
                     } else {
                         Toast.makeText(SignupActivity.this, getText(R.string.signup_failed_toast), Toast.LENGTH_SHORT).show();
                     }
