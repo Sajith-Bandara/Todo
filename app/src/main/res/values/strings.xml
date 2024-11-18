@@ -60,4 +60,6 @@
     <string name="conform_massage_save">Are the details correct?</string>
     <string name="conform_massage_delete">Are you sure you want delete task?</string>
     <string name="conform_massage_status">Are you sure you want mark as done?</string>
+
+    <string name="empty_massage">No tasks available.\nTap the \'+\' icon at the bottom to add a new task.</string>
 </resources>

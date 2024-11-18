@@ -103,7 +103,6 @@ public class LoginActivity extends AppCompatActivity {
     public void saveTokenToSharedPreferences(String token) {
         SharedPreferences sharedPreferences = getSharedPreferences("app_prefs", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.clear();
         editor.putString("token", token);
         editor.apply();
     }

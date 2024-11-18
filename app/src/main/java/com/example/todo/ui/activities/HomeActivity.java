@@ -12,7 +12,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.DatePicker;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -27,7 +26,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.todo.R;
 import com.example.todo.database.TodoDatabase;
 import com.example.todo.entity.Task;
-import com.example.todo.entity.User;
 import com.example.todo.repository.TaskRepo;
 import com.example.todo.ui.adapter.CardAdapter;
 
@@ -44,8 +42,8 @@ public class HomeActivity extends AppCompatActivity{
     private CardAdapter cardAdapter;
     private List<Task> taskList = new ArrayList<>();
     private TextView yMonth,yDate,yYear,tMonth,tDate,tYear,toMonth,toDate,toYear;
-    private View calender,yesterdayLayout,tomorrowLayout;
-    private LocalDate today,tomorrow,yesterday;
+    private View yesterdayLayout,tomorrowLayout,calender;
+    private LocalDate today,tomorrow,yesterday,selectDate;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -68,10 +66,14 @@ public class HomeActivity extends AppCompatActivity{
         toDate = findViewById(R.id.toDateHome);
         toYear = findViewById(R.id.toYearHome);
 
-        calender = findViewById(R.id.homeCalender);
+        calender = findViewById(R.id.calenderLayout);
 
         tomorrowLayout =  findViewById(R.id.tomorrowHomeLayout);
         yesterdayLayout = findViewById(R.id.yesterdayHomeLayout);
+
+        today = LocalDate.now();
+        selectDate = today;
+        setDates();
 
         calender.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,18 +84,17 @@ public class HomeActivity extends AppCompatActivity{
         tomorrowLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                setDates(tomorrow);
+                selectDate=tomorrow;
+                setDates();
             }
         });
         yesterdayLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                setDates(yesterday);
+                selectDate=yesterday;
+                setDates();
             }
         });
-
-        today = LocalDate.now();
-        setDates(today);
 
         Intent intent = new Intent(HomeActivity.this,CreateTaskActivity.class);
 
@@ -113,11 +114,11 @@ public class HomeActivity extends AppCompatActivity{
 
     @Override
     protected void onResume() {
-        getTasksList(today.toString());
+        getTasksList();
         super.onResume();
     }
 
-    private void getTasksList(String date){
+    private void getTasksList(){
 
         SharedPreferences sharedPreferences = getSharedPreferences("app_prefs", Context.MODE_PRIVATE);
         String token = sharedPreferences.getString("token",null);
@@ -133,7 +134,7 @@ public class HomeActivity extends AppCompatActivity{
             TaskRepo taskRepo = TodoDatabase.getInstance(getApplicationContext()).taskRepo();
 
             try {
-                taskList = taskRepo.getTasks(userId,date);
+                taskList = taskRepo.getTasks(userId,selectDate.toString());
             }catch (Exception e){
                 Log.e("filter","error"+e);
             }
@@ -142,27 +143,37 @@ public class HomeActivity extends AppCompatActivity{
                 Log.d("filter", "date: " + t.getDate());
             }
             runOnUiThread(() -> {
-                recyclerView = findViewById(R.id.recyclerView);
-                recyclerView.setLayoutManager(new LinearLayoutManager(this));
-                cardAdapter = new CardAdapter(this,taskList);
-                recyclerView.setAdapter(cardAdapter);
+                TextView emptyMessage = findViewById(R.id.emptyMessage);
+                RecyclerView recyclerView = findViewById(R.id.recyclerView);
+
+                if (taskList.isEmpty()) {
+                    emptyMessage.setVisibility(View.VISIBLE);
+                    recyclerView.setVisibility(View.GONE);
+                } else {
+                    emptyMessage.setVisibility(View.GONE);
+                    recyclerView.setVisibility(View.VISIBLE);
+
+                    recyclerView.setLayoutManager(new LinearLayoutManager(this));
+                    cardAdapter = new CardAdapter(this, taskList);
+                    recyclerView.setAdapter(cardAdapter);
+                }
             });
         }).start();
 
     }
 
-    private void setDates(LocalDate today) {
-        yesterday = today.minusDays(1);
-        tomorrow = today.plusDays(1);
+    private void setDates() {
+        yesterday = selectDate.minusDays(1);
+        tomorrow = selectDate.plusDays(1);
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM");
-        String tMonthName = today.format(formatter);
+        String tMonthName = selectDate.format(formatter);
         String yMonthName = yesterday.format(formatter);
         String toMonthName = tomorrow.format(formatter);
 
         tMonth.setText(tMonthName);
-        tDate.setText(String.valueOf(today.getDayOfMonth()));
-        tYear.setText(String.valueOf(today.getYear()));
+        tDate.setText(String.valueOf(selectDate.getDayOfMonth()));
+        tYear.setText(String.valueOf(selectDate.getYear()));
 
         yMonth.setText(yMonthName);
         yDate.setText(String.valueOf(yesterday.getDayOfMonth()));
@@ -172,7 +183,7 @@ public class HomeActivity extends AppCompatActivity{
         toDate.setText(String.valueOf(tomorrow.getDayOfMonth()));
         toYear.setText(String.valueOf(tomorrow.getYear()));
 
-        getTasksList(today.toString());
+        getTasksList();
     }
 
     private void datePicker() {
@@ -185,8 +196,9 @@ public class HomeActivity extends AppCompatActivity{
                 new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int selectedYear, int selectedMonth, int selectedDay) {
-                        LocalDate selectedDate = LocalDate.of(selectedYear, selectedMonth + 1, selectedDay);
-                        setDates(selectedDate);
+                        LocalDate sDate = LocalDate.of(selectedYear, selectedMonth + 1, selectedDay);
+                        selectDate=sDate;
+                        setDates();
                     }
                 }, year, month, day);
 
